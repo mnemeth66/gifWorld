@@ -1,0 +1,20 @@
+.header {
+    font-family: "Helvetica Neue", sans-serif;
+    padding: 0px 20px;
+    border-bottom: 2px solid #6a7481;
+    box-shadow: 0 4px 2px -2px #6a7481;
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+
+}
+  
+h1 {
+    font-weight: 400;
+    font-size: 1.5em;
+}
+
+.logoIcon {
+    font-size: 30px;
+    padding-top: 15px;
+    color: #c31bde;
+}
