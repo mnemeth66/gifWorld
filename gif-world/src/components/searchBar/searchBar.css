@@ -1,4 +1,18 @@
 .searchBar {
     padding: 20px;
-    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.input {
+    padding: 10px;
+    border: 2px solid #e9eaed;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #e9eaed;
+    outline: none;
+}
+
+input:focus {
+    border: 2px solid #c31bde;
 }
