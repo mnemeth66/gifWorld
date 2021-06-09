@@ -8,9 +8,10 @@ class SearchBar extends Component<{parentCallback: any},{searchString:string}> {
     state = {
         searchString: ""
     }
+
     onInputChange(event:any) {
         // console.log(event.target.value);
-        this.setState({searchString: event.target.value}, this.sendData);
+        this.setState({searchString: event.target.value});
         // console.log(this.state.searchString);
         // this.sendData(event.target.value);
     }
