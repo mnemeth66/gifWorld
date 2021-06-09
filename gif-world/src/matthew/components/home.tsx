@@ -4,22 +4,24 @@ import Header from "./header/header";
 import SearchBar from "./searchBar/searchBar";
 import SearchResults from "./searchResults/searchResults";
 
+import {FetchResponse} from "../../Interfaces";
 
-class Home extends Component<{}, {parentCallback: string}> {
+
+class Home extends Component<{}, {searchCallback: FetchResponse}> {
     state = {
-        parentCallback: ""
+        searchCallback: [],
     }
 
-    callbackFunction = (childData:string) => {
-        this.setState({parentCallback: childData})     
+    callbackFunction = (childData: FetchResponse) => {
+        this.setState({searchCallback: childData})     
     }
 
     render() {
         return (
             <div>
                 <Header />
-                <SearchBar parentCallback = {this.callbackFunction}/>
-                <SearchResults dataFromParent = {this.state.parentCallback} />
+                <SearchBar searchCallback = {this.callbackFunction}/>
+                <SearchResults dataFromParent = {this.state.searchCallback} />
             </div>
         );
     }

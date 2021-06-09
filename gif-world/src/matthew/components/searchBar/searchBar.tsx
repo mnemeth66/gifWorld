@@ -3,19 +3,19 @@ import ReactDom from "react-dom";
 
 import "./searchBar.css"
 
-class SearchBar extends Component<{parentCallback: any},{searchString:string}> {
+class SearchBar extends Component<{searchCallback: any},{searchString:string}> {
     
     state = {
         searchString: ""
     }
 
-    handleSubmit(event:any) {
+    async handleSubmit(event:any) {
         event.preventDefault();
         if (this.state.searchString.trim()) {
-            this.sendData();
-            this.fetchGifs(this.state.searchString);
+            const data = await this.fetchGifs(this.state.searchString);
+            this.sendData(data);
         } else {
-            alert("Please write item");
+            alert("Please enter search term.");
         }
     }
     onInputChange(event:any) {
@@ -25,10 +25,11 @@ class SearchBar extends Component<{parentCallback: any},{searchString:string}> {
         // this.sendData(event.target.value);
     }
 
-    sendData = () => {
-        let search = this.state.searchString
-        this.props.parentCallback(this.state.searchString);
-        console.log("sending" + search + "to searchResults");
+    sendData = (data: {}) => {
+        // let search = this.state.searchString
+        // this.props.searchCallback(this.state.searchString);
+        // console.log("sending" + search + "to searchResults");
+        this.props.searchCallback(data);
     }
 
     async fetchGifs(query:string) {
@@ -52,6 +53,7 @@ class SearchBar extends Component<{parentCallback: any},{searchString:string}> {
         if (Array.isArray(data) && data.length > 0) {
             console.log(data[0]);
         }
+        return data
     }
 
     render() {

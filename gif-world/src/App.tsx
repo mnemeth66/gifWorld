@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
       <MatthewHome />
-      <OlyaHome />
+      {/* <OlyaHome /> */}
     </div>
   );
 }
