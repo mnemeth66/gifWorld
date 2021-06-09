@@ -5,7 +5,7 @@ import SearchBar from "./searchBar/searchBar";
 import SearchResults from "./searchResults/searchResults";
 
 
-class Home extends Component<{},{parentCallback: string}> {
+class Home extends Component<{}, {parentCallback: string}> {
     state = {
         parentCallback: ""
     }
@@ -17,7 +17,7 @@ class Home extends Component<{},{parentCallback: string}> {
     render() {
         return (
             <div>
-                <Header></Header>
+                <Header />
                 <SearchBar parentCallback = {this.callbackFunction}/>
                 <SearchResults dataFromParent = {this.state.parentCallback} />
             </div>

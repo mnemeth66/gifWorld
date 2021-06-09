@@ -13,6 +13,7 @@ class SearchBar extends Component<{parentCallback: any},{searchString:string}> {
         event.preventDefault();
         if (this.state.searchString.trim()) {
             this.sendData();
+            this.fetchGifs(this.state.searchString);
         } else {
             alert("Please write item");
         }
@@ -25,7 +26,32 @@ class SearchBar extends Component<{parentCallback: any},{searchString:string}> {
     }
 
     sendData = () => {
+        let search = this.state.searchString
         this.props.parentCallback(this.state.searchString);
+        console.log("sending" + search + "to searchResults");
+    }
+
+    async fetchGifs(query:string) {
+        const url = "http://api.giphy.com/v1/gifs/search?q=" 
+                + query 
+                + "&api_key=dc6zaTOxFJmzC"
+                + "&limit=1"
+        // Method 1
+        const response = await fetch(url);
+        const {data, pagination, meta} = await response.json();
+
+        // Method 2
+        // let data = {};
+        // fetch(url).then(async response => {
+        //     const JSONResponse = await response.json();
+        //     data = JSONResponse.data
+        //     console.log(data);
+        // })
+
+        // console.log(pagination);
+        if (Array.isArray(data) && data.length > 0) {
+            console.log(data[0]);
+        }
     }
 
     render() {
