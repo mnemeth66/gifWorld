@@ -3,13 +3,13 @@ import ReactDom from "react-dom";
 
 import "./searchBar.css"
 
-class SearchBar extends Component<{searchCallback: any},{searchString:string}> {
+class SearchBar extends Component<{searchCallback: any},{searchString: string}> {
     
     state = {
         searchString: ""
     }
 
-    async handleSubmit(event:any) {
+    async handleSubmit(event: any) {
         event.preventDefault();
         if (this.state.searchString.trim()) {
             const data = await this.fetchGifs(this.state.searchString);
@@ -18,17 +18,11 @@ class SearchBar extends Component<{searchCallback: any},{searchString:string}> {
             alert("Please enter search term.");
         }
     }
-    onInputChange(event:any) {
-        // console.log(event.target.value);
+    onInputChange(event: any) {
         this.setState({searchString: event.target.value});
-        // console.log(this.state.searchString);
-        // this.sendData(event.target.value);
     }
 
     sendData = (data: {}) => {
-        // let search = this.state.searchString
-        // this.props.searchCallback(this.state.searchString);
-        // console.log("sending" + search + "to searchResults");
         this.props.searchCallback(data);
     }
 
@@ -36,7 +30,7 @@ class SearchBar extends Component<{searchCallback: any},{searchString:string}> {
         const url = "http://api.giphy.com/v1/gifs/search?q=" 
                 + query 
                 + "&api_key=dc6zaTOxFJmzC"
-                + "&limit=1"
+                + "&limit=10"
         // Method 1
         const response = await fetch(url);
         const {data, pagination, meta} = await response.json();
@@ -48,11 +42,6 @@ class SearchBar extends Component<{searchCallback: any},{searchString:string}> {
         //     data = JSONResponse.data
         //     console.log(data);
         // })
-
-        // console.log(pagination);
-        if (Array.isArray(data) && data.length > 0) {
-            console.log(data[0]);
-        }
         return data
     }
 
