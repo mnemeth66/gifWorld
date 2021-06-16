@@ -5,7 +5,6 @@ import { listTodos } from '../../graphql/queries'
 import awsExports from "../../aws-exports"
 import { GraphQLResult } from '@aws-amplify/api-graphql'
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
-import { Z_FIXED } from 'zlib'
 
 //Testing Todo GraphQL API
 Amplify.configure(awsExports);
