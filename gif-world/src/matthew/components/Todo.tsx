@@ -4,7 +4,8 @@ import { createTodo, deleteTodo } from '../../graphql/mutations'
 import { listTodos } from '../../graphql/queries'
 import awsExports from "../../aws-exports"
 import { GraphQLResult } from '@aws-amplify/api-graphql'
-import { withAuthenticator } from '@aws-amplify/ui-react'
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
+import { Z_FIXED } from 'zlib'
 
 //Testing Todo GraphQL API
 Amplify.configure(awsExports);
@@ -76,6 +77,7 @@ const TodoApp = () => {
   }
   return (
     <div style={styles.container}>
+      <AmplifySignOut style={sign_out_style} />
       <h2>Amplify Todos</h2>
       <input
         onChange={event => setInput('name', event.target.value)}
@@ -112,6 +114,9 @@ const styles = {
   button: { backgroundColor: 'black', color: 'white', outline: 'none', fontSize: 18, padding: '12px 0px' }
 }
 const remove_button_styles = Object.create(styles.button)
+const sign_out_style = {
+  position: 'fixed' as 'fixed', right: '0px', top: '0px'
+}
 remove_button_styles.backgroundColor = 'pink'
 
 export default withAuthenticator(TodoApp)
