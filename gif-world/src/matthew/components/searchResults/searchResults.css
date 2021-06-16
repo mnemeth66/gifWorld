@@ -5,7 +5,25 @@
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     grid-template-rows: masonry;
 }
-
+.GIF-box {
+    width: 400px;
+    height: 200px;
+    border: 5px solid green;
+    position: relative;
+}
 .image {
     width: 100%;
+    height: 100%;
+}
+.left-button {
+    position: absolute;
+    left: 0; bottom: 0;
+}
+.right-button {
+    position: absolute;
+    right: 0; bottom: 0;
+}
+.delete-GIF-button {
+    position: absolute;
+    right: 0; top: 0;
 }

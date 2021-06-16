@@ -1,0 +1,26 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-gifworld-dev-135321-authRole",
+            "UnauthRoleArn": "arn:aws:iam::331219427342:role/amplify-gifworld-dev-135321-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::331219427342:role/amplify-gifworld-dev-135321-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-gifworld-dev-135321-deployment",
+            "UnauthRoleName": "amplify-gifworld-dev-135321-unauthRole",
+            "StackName": "amplify-gifworld-dev-135321",
+            "StackId": "arn:aws:cloudformation:us-east-1:331219427342:stack/amplify-gifworld-dev-135321/8fefc580-cd52-11eb-86c0-0a3071d8b5ff",
+            "AmplifyAppId": "d3bs088i7litou"
+        },
+        "categories": {
+            "auth": {
+                "gifworld603f0145": {}
+            },
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d3bs088i7litou",
+                    "type": "manual"
+                }
+            }
+        }
+    }
+}

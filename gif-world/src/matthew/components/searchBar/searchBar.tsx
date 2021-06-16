@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import ReactDom from "react-dom";
+import { Component } from "react";
 
 import "./searchBar.css"
 
@@ -30,11 +29,14 @@ class SearchBar extends Component<{searchCallback: any},{searchString: string}> 
         const url = "http://api.giphy.com/v1/gifs/search?q=" 
                 + query 
                 + "&api_key=dc6zaTOxFJmzC"
+                // + "&api_key=mDKGAtcQobqQgD19pLAeP7O5cbxUDoDF"
                 + "&limit=10"
         // Method 1
         const response = await fetch(url);
-        const {data, pagination, meta} = await response.json();
-
+        // const {data, pagination, meta} = await response.json();
+        // You don't need to actually pull the other variables out, 
+        // deconstructing is nice like that
+        const { data } = await response.json();
         // Method 2
         // let data = {};
         // fetch(url).then(async response => {
