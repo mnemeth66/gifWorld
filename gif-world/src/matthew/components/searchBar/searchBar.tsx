@@ -26,7 +26,7 @@ class SearchBar extends Component<{searchCallback: any},{searchString: string}> 
     }
 
     async fetchGifs(query:string) {
-        const url = "http://api.giphy.com/v1/gifs/search?q=" 
+        const url = "https://api.giphy.com/v1/gifs/search?q=" 
                 + query 
                 + "&api_key=dc6zaTOxFJmzC"
                 // + "&api_key=mDKGAtcQobqQgD19pLAeP7O5cbxUDoDF"

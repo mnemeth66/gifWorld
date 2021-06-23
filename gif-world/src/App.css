@@ -63,13 +63,13 @@
   overflow: hidden;
   max-width: 150px;
   z-index: 9;
-  opacity: 0%;
+  opacity: 0;
 }
 
 .menuNav.showMenu {
   width: 100%;
   max-width: 150px;
-  opacity: 80%;
+  opacity: .8;
 }
 
 a {
