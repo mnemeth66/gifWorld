@@ -20,6 +20,11 @@ const Navbar = () => {
             id: 3,
             path: "/todo",
             text: "To-do",
+        }, 
+        {
+            id: 4,
+            path: "/api-practice",
+            text: "Api"
         }
     ]
     const handleToggle = () => {

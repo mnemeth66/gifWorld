@@ -2,6 +2,7 @@ import './App.css';
 import MatthewHome from "./matthew/components/home"
 import TodoApp from "./matthew/components/Todo"
 import Navbar from "./matthew/components/Navbar"
+import SavedResults from "./matthew/components/savedResults"
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,7 +19,7 @@ function App() {
             <TodoApp/>
           </Route>
           <Route path="/saved">
-            <h1>To be implemented!</h1>
+            <SavedResults/>
           </Route>
           <Route path="/">
             <MatthewHome/>
