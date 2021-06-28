@@ -9,6 +9,7 @@ Amplify.configure(awsExports);
 
 ReactDOM.render(
   <React.StrictMode>
+    <title>DankNeemz</title>
     <App />
   </React.StrictMode>,
   document.getElementById('root')

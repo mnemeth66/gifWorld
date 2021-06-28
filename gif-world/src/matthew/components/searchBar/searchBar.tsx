@@ -12,7 +12,11 @@ class SearchBar extends Component<{searchCallback: any},{searchString: string}> 
         event.preventDefault();
         if (this.state.searchString.trim()) {
             const data = await this.fetchGifs(this.state.searchString);
-            this.sendData(data);
+            const searchWithData = {
+                searchTerm: this.state.searchString,
+                fetch: data
+            }
+            this.sendData(searchWithData);
         } else {
             alert("Please enter search term.");
         }

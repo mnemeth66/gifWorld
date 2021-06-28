@@ -43,7 +43,7 @@ const TodoApp = () => {
       const todoData = await API.graphql(graphqlOperation(listTodos)) as GraphQLResult<listTodoResponse>
       const todos = todoData.data!.listTodos.items
       setTodos(todos)
-    } catch (err) { console.log('error fetching todos') }
+    } catch (err) { console.log('error fetching todos: ', err) }
   }
 
   async function addTodo() {

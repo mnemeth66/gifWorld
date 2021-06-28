@@ -1,24 +1,38 @@
 import { Component } from "react";
 import { AmplifyAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react"
 import { AuthStateHandler, CognitoUserInterface } from "@aws-amplify/ui-components"
+import { SearchTermWithFetch } from "../../Interfaces";
+import SearchResults from "./searchResults/searchResults"
 
-class savedResults extends Component<{}, {}> {
+interface QueryItem {
+    id: number,
+    searchTerm: string,
+    URL: string,
+}
+interface QueryResponse {
+    Items: QueryItem[]
+}
+interface StringIndexable {
+    [index: string]: {images: {fixed_height: {url: string}}}[]
+}
+class savedResults extends Component<{}, {saved: string, userToken: {}, links: SearchTermWithFetch[]}> {
     state = {
         saved: "",
-        userToken: {},
+        userToken: {}, 
+        links: [],
     }
     componentDidMount() {
-        console.log('component mount')
-        this.getSaved();
+        this.getSecretMessage();
     }
-    async getSaved() {
+    async getSecretMessage() {
         try {
+            // console.log(`Bearer ${this.state.userToken}`);
             const response = await fetch("https://65s902eyzd.execute-api.us-east-1.amazonaws.com/secret_hideout", {
                 method: 'GET',
-                mode: 'cors',
                 headers: {
                     'Authorization': `Bearer ${this.state.userToken}`
                 },
+                redirect: 'follow',
             });
             console.log(response)
             const data = await response.json();
@@ -26,22 +40,54 @@ class savedResults extends Component<{}, {}> {
             if (response.ok) {
                 this.setState({ saved: JSON.stringify(data) });
             } else {
-                this.setState({ saved: "Error: " + response.status + ". \n You're not authorized to see this message."});
+                this.setState({ saved: "You're not authorized to see this message."});
             }
         } catch (e) {
-            this.setState({ saved: "random other error lol" });
+            this.setState({ saved: "random other error lol: " + e});
+        }
+    }
+    changeFormat(data: QueryResponse): SearchTermWithFetch[] {
+        let links_obj = data.Items.reduce((r: StringIndexable, a) => {
+            let newItem = {images: {fixed_height: {url: a.URL}}}
+            r[a.searchTerm] = [...r[a.searchTerm] || [], newItem];
+            return r
+          }, {});
+        let links_arr: SearchTermWithFetch[] = []
+        for (let term in links_obj) {
+        links_arr.push({
+            searchTerm: term, 
+            fetch: links_obj[term]}
+            )
+        }
+        return links_arr
+    }
+    async getSavedGifs() {
+        try {
+            const response = await fetch(
+                "https://65s902eyzd.execute-api.us-east-1.amazonaws.com/savedGifs/scan"
+                + "?q="
+                + `searchTerms=""`);
+            const data: QueryResponse = await response.json();
+            console.log(data)
+            const newData = this.changeFormat(data)
+            console.log("New format: ", newData)
+            this.setState({links: newData})
+        } catch (e) {
+            console.log("Error: ", e)
         }
     }
 
     render() {
         const handleAuthStateChange: AuthStateHandler | undefined = ((nextAuthState: any, authData: CognitoUserInterface | object | undefined) => {
-            console.log(authData);
+            // console.log(authData);
             if (authData && 'signInUserSession' in authData) {
                 this.setState({ userToken: authData.signInUserSession.accessToken.jwtToken })
             } else {
                 this.setState({ userToken: {} })
             }
-            this.getSaved();
+            this.getSecretMessage();
+            this.getSavedGifs();
+
         });
         return (
             <>
@@ -51,6 +97,9 @@ class savedResults extends Component<{}, {}> {
                             marginRight: '25%', border: '3px solid green', width: '40%'
                             }}>
                     <h1 style={{ textAlign: 'center'}}> {this.state.saved} </h1>
+                </div>
+                <div>
+                    {this.state.links.map(links => <SearchResults dataFromParent={links}/>)}
                 </div>
 
                 

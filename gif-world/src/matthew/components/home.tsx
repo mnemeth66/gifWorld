@@ -3,15 +3,18 @@ import Header from "./header/header";
 import SearchBar from "./searchBar/searchBar";
 import SearchResults from "./searchResults/searchResults";
 
-import {FetchResponse} from "../../Interfaces";
+import { SearchTermWithFetch } from "../../Interfaces";
 
 
-class Home extends Component<{}, {searchCallback: FetchResponse}> {
+class Home extends Component<{}, {searchCallback: SearchTermWithFetch}> {
     state = {
-        searchCallback: [],
+        searchCallback: {
+            searchTerm: "",
+            fetch: []
+        },
     }
 
-    callbackFunction = (childData: FetchResponse) => {
+    callbackFunction = (childData: SearchTermWithFetch) => {
         this.setState({searchCallback: childData})     
     }
 
@@ -20,6 +23,7 @@ class Home extends Component<{}, {searchCallback: FetchResponse}> {
             <div>
                 <Header />
                 <SearchBar searchCallback = {this.callbackFunction}/>
+                <SearchResults dataFromParent = {this.state.searchCallback} />
                 <SearchResults dataFromParent = {this.state.searchCallback} />
             </div>
         );
