@@ -26,17 +26,14 @@ class savedResults extends Component<{}, {saved: string, userToken: {}, links: S
     }
     async getSecretMessage() {
         try {
-            // console.log(`Bearer ${this.state.userToken}`);
             const response = await fetch("https://65s902eyzd.execute-api.us-east-1.amazonaws.com/secret_hideout", {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${this.state.userToken}`
                 },
-                redirect: 'follow',
+                // redirect: 'follow',
             });
-            console.log(response)
             const data = await response.json();
-            console.log(data);
             if (response.ok) {
                 this.setState({ saved: JSON.stringify(data) });
             } else {
@@ -66,13 +63,18 @@ class savedResults extends Component<{}, {saved: string, userToken: {}, links: S
             const response = await fetch(
                 "https://65s902eyzd.execute-api.us-east-1.amazonaws.com/savedGifs/scan"
                 + "?q="
-                + `searchTerms=""`);
+                + `searchTerms=""`, {
+                    headers: {
+                        'Authorization': `Bearer ${this.state.userToken}`
+                    }}
+                ,);
             const data: QueryResponse = await response.json();
             console.log(data)
             const newData = this.changeFormat(data)
             console.log("New format: ", newData)
-            this.setState({links: newData})
+            this.setState({ links: newData })
         } catch (e) {
+            this.setState({ links: [] })
             console.log("Error: ", e)
         }
     }
@@ -98,7 +100,7 @@ class savedResults extends Component<{}, {saved: string, userToken: {}, links: S
                             }}>
                     <h1 style={{ textAlign: 'center'}}> {this.state.saved} </h1>
                 </div>
-                <div>
+                <div style={{position: "fixed", top: "120px"}}>
                     {this.state.links.map(links => <SearchResults dataFromParent={links}/>)}
                 </div>
 
